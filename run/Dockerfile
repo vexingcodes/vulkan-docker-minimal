@@ -88,6 +88,8 @@ RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends \
       iproute2 \
       libglfw3 \
+      libspdlog1 \
+      libunwind8 \
  && rm -rf /var/lib/apt/lists/*
 
 COPY triangle.conf /etc/supervisor/conf.d/

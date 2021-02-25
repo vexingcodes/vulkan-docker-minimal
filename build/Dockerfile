@@ -23,6 +23,24 @@ RUN wget -O shaderc.tar.gz https://github.com/google/shaderc/archive/v2020.5.tar
  && cmake --build build --target install \
  && rm -rf /shaderc*
 
+# TODO MOVE UP!
+RUN apt-get update \
+ && DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends \
+      doxygen \
+      gdb \
+      googletest \
+      graphviz \
+      lcov \
+      libspdlog-dev \
+      libunwind-dev \
+      valgrind \
+ && rm -rf /var/lib/apt/lists/*
+
+RUN cd /usr/src/googletest \
+ && cmake -B build -DCMAKE_BUILD_TYPE=Release \
+ && cmake --build build --target install \
+ && rm -rf build
+
 # Run everything as standard user/group dev.
 RUN groupadd dev \
  && useradd --create-home --shell /bin/bash --gid dev dev
